@@ -17,23 +17,33 @@ public class GameManger : MonoBehaviour
     private int score; // Player's score
     public TextMeshProUGUI scoreText; //score UI displayed on Screen
 
+   // private int lives = 3; // Player's lives
+
+    public TextMeshProUGUI livesText; // lives UI displayed on screen
+
+    public GameObject gameOverPanel; // Game Over UI to display on screen
+
+    public bool isGameActive;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        isGameActive = true;// initialise isGameActive bool, setting to true
+        //lives = 3;
         StartCoroutine(SpawnTarget()); //calling 'SpawnTarget' Coroutine
         UpdateScore(0); //Score is zero upon game starting
         
     }
 
-    public void SwitchScene(int sceneIndex) // method to switch gamescenes
+    public void RestartGame() // method to switch gamescenes
     {
-        SceneManager.LoadScene(sceneIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     IEnumerator SpawnTarget() //return coroutine method to spawn targets
     {
-        while (true) // Every 1 second, coroutine will instantiate 1 random gameObject part of the of targets' list
+        while (isGameActive) // Every 1 second isGameActive bool is set to 'true', coroutine will instantiate 1 random gameObject part of the of targets' list
         {
             yield return new WaitForSeconds(spawnRate);
             int index = Random.Range(0, targets.Count);
@@ -47,6 +57,19 @@ public class GameManger : MonoBehaviour
         score += scoreToAdd;
         scoreText.text = "Score: " + score;
 
+    }
+
+   /* public void UpdateLives(int livesToTake)
+    {
+        lives -= livesToTake;
+        livesText.text = "lives: " + lives;
+        
+    }*/
+
+    public void GameOver() // method to display Game Over text in GameManager.cs
+    {
+        gameOverPanel.gameObject.SetActive(true);
+        isGameActive = false; //setting isgameActive bool to false
     }
 
     // Update is called once per frame

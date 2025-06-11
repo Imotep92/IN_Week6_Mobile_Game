@@ -7,6 +7,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     
     private GameManger gameManager; // Access to GameManager.cs
+    
 
     #region GameObjects: Targets
     private Rigidbody targetRb; // Access to all target items' Rigidbodies
@@ -28,6 +29,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
     {
 
         gameManager = GameObject.Find("Game_Manager").GetComponent<GameManger>(); // initialise access to GameManager GameObject
+       
 
         targetRb = GetComponent<Rigidbody>(); // intialise access to rigidbodies of 'target' items
 
@@ -56,14 +58,29 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     private void OnMouseDown()  // return method call for what should happen to targets upon mouse click
     {
-        Destroy(gameObject);
-        Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
-        gameManager.UpdateScore(pointValue);
+        if (gameManager.isGameActive) //only when isGameActive bool is set to 'true' 
+        {
+            Destroy(gameObject);
+            Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
+            gameManager.UpdateScore(pointValue);
+        }
+        
     }
 
     private void OnTriggerEnter(Collider other) // call method for targets that fall into the collider sttached to the 'sensor' GameObject
     {
         Destroy(gameObject);
+        if (!gameObject.CompareTag("Bad"))
+        {
+            gameManager.GameOver();
+        }
+
+        /*if (gameManager.lives <= 0)
+        {
+            
+            gameManager.UpdateLives(1);
+        }*/
+            
     }
 
     // Update is called once per frame
