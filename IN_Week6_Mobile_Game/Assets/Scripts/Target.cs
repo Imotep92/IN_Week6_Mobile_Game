@@ -20,6 +20,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     public int pointValue; // individual point values assigned to 'targets'
 
+    public int livesValue = 1; // individual minus lives values assigned to certain 'targets'
+
     public ParticleSystem explosionParticle; // explosion particles for each target 
     #endregion GameObjects: Targets
 
@@ -58,36 +60,36 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     private void OnMouseDown()  // return method call for what should happen to targets upon mouse click
     {
-        if (gameManager.isGameActive) //only when isGameActive bool is set to 'true' 
+        if (gameManager.isGameActive) // only when isGameActive bool is set to 'true' 
         {
             Destroy(gameObject);
             Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
             gameManager.UpdateScore(pointValue);
-        }
-        
+
+            if (gameObject.CompareTag("Bad"))  // only when a "bad" target is clicked
+            {
+                gameManager.UpdateLives(livesValue);
+            }
+        }  
     }
 
-    private void OnTriggerEnter(Collider other) // call method for targets that fall into the collider sttached to the 'sensor' GameObject
+    private void OnTriggerEnter(Collider other) // call method for targets that fall into the collider attached to the 'sensor' GameObject
     {
         Destroy(gameObject);
-        if (!gameObject.CompareTag("Bad"))
+        if (!gameObject.CompareTag("Bad")) // only if a "good" target passes the sensor
         {
-            gameManager.GameOver();
-        }
-
-        /*if (gameManager.lives <= 0)
-        {
-            
-            gameManager.UpdateLives(1);
-        }*/
-            
+            gameManager.UpdateLives(1);   
+        }      
     }
 
     // Update is called once per frame
     void Update()
     {
-    
-
+        if (gameManager.lives <= 0) // call GameOver(){} from GameManager.cs when lives = 0
+        {
+            gameManager.GameOver();
+            Debug.Log("Game Over");
+        }
     }
     
     /*EXAMPLE*/

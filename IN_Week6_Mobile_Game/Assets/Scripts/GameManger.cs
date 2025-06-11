@@ -12,69 +12,79 @@ public class GameManger : MonoBehaviour
 {
 
     public List<GameObject> targets; // GameObjects in the "targets' list
-    private float spawnRate = 1.0f; // 'targets' spawn every 1 sec
+    private float spawnRate = 1.5f; // 'targets' spawn every 1.5 sec
+
 
     private int score; // Player's score
+    public int lives; // Player's lives
     public TextMeshProUGUI scoreText; //score UI displayed on Screen
-
-   // private int lives = 3; // Player's lives
-
     public TextMeshProUGUI livesText; // lives UI displayed on screen
+    public TextMeshProUGUI finalScoreText, highScoreText; // "Finalscore" and "Highscore" text displayed in GameOver panel
+
 
     public GameObject gameOverPanel; // Game Over UI to display on screen
+    public bool isGameActive; // bool determines whether the game is active
 
-    public bool isGameActive;
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    /* public void SwitchScene() {SceneManager.LoadScene(1);} // method to switch scenes */
+    
     void Start()
     {
-        isGameActive = true;// initialise isGameActive bool, setting to true
-        //lives = 3;
+        isGameActive = true; // initialise isGameActive bool, setting to true
+        UpdateLives(-3); // initialise lives
         StartCoroutine(SpawnTarget()); //calling 'SpawnTarget' Coroutine
-        UpdateScore(0); //Score is zero upon game starting
-        
+        UpdateScore(0); // Score is zero upon game starting
     }
 
-    public void RestartGame() // method to switch gamescenes
+    public void RestartGame() // method to restart active game scene
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    IEnumerator SpawnTarget() //return coroutine method to spawn targets
+    IEnumerator SpawnTarget() // return coroutine method to spawn targets
     {
-        while (isGameActive) // Every 1 second isGameActive bool is set to 'true', coroutine will instantiate 1 random gameObject part of the of targets' list
+        while (isGameActive) // Every 1.5 second isGameActive bool is set to 'true', coroutine will instantiate 1 random gameObject part of the of targets' list
         {
             yield return new WaitForSeconds(spawnRate);
             int index = Random.Range(0, targets.Count);
             Instantiate(targets[index]);
         }
-        
     }
 
     public void UpdateScore(int scoreToAdd) // method to update score on game scene
     {
         score += scoreToAdd;
         scoreText.text = "Score: " + score;
-
     }
 
-   /* public void UpdateLives(int livesToTake)
+    public void UpdateLives(int livesToTake) // method to update lives on game scene
     {
-        lives -= livesToTake;
-        livesText.text = "lives: " + lives;
-        
-    }*/
+        if (isGameActive) // lives only coutdown whilst game is active
+        {
+            lives -= livesToTake;
+            livesText.text = "lives: " + lives;
+        }
+    }
 
     public void GameOver() // method to display Game Over text in GameManager.cs
     {
+        finalScoreText.text = "Final Score " + score;
+
+        if (score > PlayerPrefs.GetInt("Highscore")) // if the final score is greater than the high score, replace highscore
+        {
+            PlayerPrefs.SetInt("Highscore", score);
+        }
+
+        highScoreText.text = "Highscore " + PlayerPrefs.GetInt("Highscore"); // most recent "Highscore" is displayed on the game over screen 
+
+        isGameActive = false; // setting isgameActive bool to false
         gameOverPanel.gameObject.SetActive(true);
-        isGameActive = false; //setting isgameActive bool to false
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
+
+/*EXAMPLE*/

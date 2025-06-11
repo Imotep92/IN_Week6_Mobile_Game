@@ -558,8 +558,11 @@ MonoBehaviour:
   - {fileID: 2803877987358925804, guid: 0dd3107286ca7406788943025a8efcaa, type: 3}
   - {fileID: 1570755705561587156, guid: 7d3563d8a6fe040c2ab4438c1dc5ef2b, type: 3}
   scoreText: {fileID: 780118843}
-  livesText: {fileID: 0}
+  lives: 0
+  livesText: {fileID: 1924510318}
   gameOverPanel: {fileID: 329974645}
+  finalScoreText: {fileID: 1215860131}
+  highScoreText: {fileID: 840415109}
   isGameActive: 0
 --- !u!4 &679461673
 Transform:
@@ -724,7 +727,7 @@ GameObject:
   - component: {fileID: 836199676}
   - component: {fileID: 836199675}
   m_Layer: 5
-  m_Name: Game_Panel
+  m_Name: Game_Panel_UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -802,7 +805,7 @@ GameObject:
   - component: {fileID: 840415110}
   - component: {fileID: 840415109}
   m_Layer: 5
-  m_Name: High_Score (1)
+  m_Name: 'High_Score '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -890,7 +893,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -1304,7 +1307,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Current Score:'
+  m_text: 'Final Score:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -1347,7 +1350,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -1752,7 +1755,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1924510317
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1792,7 +1795,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Lives: '
+  m_text: 'Lives:  00'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
