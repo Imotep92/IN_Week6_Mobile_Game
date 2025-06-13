@@ -20,7 +20,9 @@ public class GameManger : MonoBehaviour
     public TextMeshProUGUI scoreText; //score UI displayed on Screen
     public TextMeshProUGUI livesText; // lives UI displayed on screen
     public TextMeshProUGUI finalScoreText, highScoreText; // "Finalscore" and "Highscore" text displayed in GameOver panel
+    public GameObject TitleScreen; //Title sceen UI to display on screen
 
+    //public GameObject difficultyPanel;
 
     public GameObject gameOverPanel; // Game Over UI to display on screen
     public bool isGameActive; // bool determines whether the game is active
@@ -29,10 +31,17 @@ public class GameManger : MonoBehaviour
     
     void Start()
     {
+        
+    }
+
+    public void StartGame( int difficulty)
+    {
+        TitleScreen.gameObject.SetActive(false);
+        spawnRate /= difficulty;
         isGameActive = true; // initialise isGameActive bool, setting to true
         UpdateLives(-3); // initialise lives
         StartCoroutine(SpawnTarget()); //calling 'SpawnTarget' Coroutine
-        UpdateScore(0); // Score is zero upon game starting
+        UpdateScore(0); // Score is zero upon game starting 
     }
 
     public void RestartGame() // method to restart active game scene
