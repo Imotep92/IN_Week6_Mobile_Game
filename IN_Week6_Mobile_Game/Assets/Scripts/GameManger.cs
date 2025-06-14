@@ -22,7 +22,7 @@ public class GameManger : MonoBehaviour
     public TextMeshProUGUI finalScoreText, highScoreText; // "Finalscore" and "Highscore" text displayed in GameOver panel
     public GameObject TitleScreen; //Title sceen UI to display on screen
 
-    //public GameObject difficultyPanel;
+    public GameObject difficultyPanel;
 
     public GameObject gameOverPanel; // Game Over UI to display on screen
     public bool isGameActive; // bool determines whether the game is active
