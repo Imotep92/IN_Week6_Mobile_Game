@@ -3,9 +3,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using TMPro.EditorUtilities;
-using UnityEngine.SocialPlatforms.Impl;
+
 
 
 public class GameManger : MonoBehaviour
@@ -29,11 +27,6 @@ public class GameManger : MonoBehaviour
 
     /* public void SwitchScene() {SceneManager.LoadScene(1);} // method to switch scenes */
     
-    void Start()
-    {
-        
-    }
-
     public void StartGame( int difficulty)
     {
         TitleScreen.gameObject.SetActive(false);
@@ -89,11 +82,6 @@ public class GameManger : MonoBehaviour
         gameOverPanel.gameObject.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
 
 /*EXAMPLE*/

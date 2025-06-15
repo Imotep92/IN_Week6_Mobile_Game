@@ -1,5 +1,3 @@
-using System.Collections;
-using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class NewMonoBehaviourScript : MonoBehaviour
@@ -10,13 +8,13 @@ public class NewMonoBehaviourScript : MonoBehaviour
     
 
     #region GameObjects: Targets
-    private Rigidbody targetRb; // Access to all target items' Rigidbodies
+    private Rigidbody targetRb; // Access to all 3D target items' Rigidbodies
 
     private float minSpeed = 12; // minimum speed
     private float maxSpeed = 16; // maximum speed
     private float maxTorque = 4; // maximum Torque(rotation)
     private float xRange = 4; // range along the x axis
-    private float ySpawnPos = -6; // 'targets' spawn at a specified point on y axis
+    private float ySpawnPos = - 6; // 'targets' spawn at a specified point on y axis
 
     public int pointValue; // individual point values assigned to 'targets'
 
@@ -31,23 +29,25 @@ public class NewMonoBehaviourScript : MonoBehaviour
     {
 
         gameManager = GameObject.Find("Game_Manager").GetComponent<GameManger>(); // initialise access to GameManager GameObject
-       
 
-        targetRb = GetComponent<Rigidbody>(); // intialise access to rigidbodies of 'target' items
+        targetRb = GetComponent<Rigidbody>(); // intialise access to rigidbodies of '3D target' items
 
         targetRb.AddForce(RandomForce(), ForceMode.Impulse); //random Y value
         targetRb.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse); // random XYZ value
 
-        transform.position = RandomSpawnPos(); // position set as randomised X value
 
+        transform.position = RandomSpawnPos(); // position set as randomised X value
         
     }
 
-    Vector3 RandomForce() // return method call for random y value in start()
+    
+    #region 3D Objects physics
+
+    Vector3 RandomForce() // return method call for random y value on 3D objects in start()
     {
         return Vector3.up * Random.Range(minSpeed, maxSpeed); // = RandomForce()
     }
-   
+
     float RandomTorque() // return method call for random rotation values in XYZ
     {
         return Random.Range(-maxTorque, maxTorque);  // = RandomTorque()
@@ -57,6 +57,9 @@ public class NewMonoBehaviourScript : MonoBehaviour
     {
         return new Vector3(Random.Range(-xRange, xRange), ySpawnPos); // = RandomSpawnPos
     }
+
+    #endregion 3D Objects physics
+
 
     private void OnMouseDown()  // return method call for what should happen to targets upon mouse click
     {
@@ -70,7 +73,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
             {
                 gameManager.UpdateLives(livesValue);
             }
-        }  
+        }
     }
 
     private void OnTriggerEnter(Collider other) // call method for targets that fall into the collider attached to the 'sensor' GameObject
@@ -81,6 +84,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
             gameManager.UpdateLives(1);   
         }      
     }
+
 
     // Update is called once per frame
     void Update()
